@@ -10,5 +10,5 @@ routes.post('/epi', new EpiController().create);
 routes.post('/entregaepi', new DeliveryEpiController().create);
 routes.get('/entregaepi', new DeliveryEpiController().show); //
 routes.delete('/entregaepi', new DeliveryEpiController().delete); 
-routes.put('/entregaepi', new DeliveryEpiController().update);//
+routes.put('/entregaepi/:delivery_id', new DeliveryEpiController().update);//
 export default routes;
