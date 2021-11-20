@@ -9,6 +9,6 @@ routes.post('/employees', new EmployeeController().create);
 routes.post('/epi', new EpiController().create);
 routes.post('/entregaepi', new DeliveryEpiController().create);
 routes.get('/entregaepi', new DeliveryEpiController().show); //
-routes.delete('/entregaepi', new DeliveryEpiController().delete); 
+routes.delete('/entregaepi/:delivery_id', new DeliveryEpiController().delete); 
 routes.put('/entregaepi/:delivery_id', new DeliveryEpiController().update);//
 export default routes;

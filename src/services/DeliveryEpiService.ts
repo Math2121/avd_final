@@ -58,12 +58,17 @@ class DeliveryEpiService {
     const deliverEpiRepository = new DeliveryEpiRepository();
     const epiRepository = new EpiRepository();
     const employeeRepository = new EmployeeRepository();
+    const ifDeliveryExist = await deliverEpiRepository.findById(
+      delivery_id
+    );
     const ifEmployeExist = await employeeRepository.findByIdEmployee(
       employee_id
     );
-    console.log(ifEmployeExist);
+
     const ifEpiExists = await epiRepository.findByEpiId(epi_id);
-    console.log(ifEpiExists);
+    if (!ifDeliveryExist) {
+      throw new Error("Delivery  not exists");
+    }
     if (!ifEmployeExist) {
       throw new Error("Employee not exists");
     }

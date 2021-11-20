@@ -26,7 +26,7 @@ class DeliveryEpiController {
 
   async delete(request : Request, response : Response) {
     const deliveryEpi = new DeliveryEpiService();
-    const {id} = request.body
+    const {id} = request.params
     try {
       await deliveryEpi.delete(id)
       return response.status(204).send();
