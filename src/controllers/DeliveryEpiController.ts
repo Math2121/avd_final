@@ -38,8 +38,9 @@ class DeliveryEpiController {
   async update(request : Request, response : Response) {
     const deliveryEpi = new DeliveryEpiService();
     const {employee_id,epi_id,delivery_date,amount_delivered}  = request.body;
+    const {id} = request.params
     try {
-      await deliveryEpi.update(employee_id,epi_id,delivery_date,amount_delivered)
+      await deliveryEpi.update(id,employee_id,epi_id,delivery_date,amount_delivered)
       return response.status(204).send();
     } catch (error) {
       return response.status(400).json(`error: ${error.message}`);

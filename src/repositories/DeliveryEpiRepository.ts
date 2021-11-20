@@ -5,6 +5,13 @@ interface IDeliveryEpi {
   delivery_date: Date;
   amount_delivered: number;
 }
+interface IDeliveryEpiUpdate {
+  delivery_id:string;
+  employee_id: string;
+  epi_id: string;
+  delivery_date: Date;
+  amount_delivered: number;
+}
 class DeliveryEpiRepository {
   async create({
     employee_id,
@@ -24,18 +31,23 @@ class DeliveryEpiRepository {
   }
 
   async update({
+    delivery_id,
     employee_id,
     epi_id,
     delivery_date,
     amount_delivered,
-  }: IDeliveryEpi) {
-    const delivery_epi = await prismaClient.ePI_delivery.create({
+  }: IDeliveryEpiUpdate) {
+    const delivery_epi = await prismaClient.ePI_delivery.update({
+      where:{
+        id:delivery_id
+      },
       data: {
         employee_id,
         epi_id,
         delivery_date,
         amount_delivered,
       },
+      
     });
     return delivery_epi;
   }

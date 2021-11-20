@@ -9,6 +9,13 @@ interface IDeliveryEpi {
   delivery_date: Date;
   amount_delivered: number;
 }
+interface IDeliveryEpiUpdate {
+  delivery_id:string;
+  employee_id: string;
+  epi_id: string;
+  delivery_date: Date;
+  amount_delivered: number;
+}
 class DeliveryEpiService {
   async execute({
     employee_id,
@@ -33,6 +40,39 @@ class DeliveryEpiService {
     }
 
     const delivery_epi = await deliverEpiRepository.create({
+      employee_id,
+      epi_id,
+      delivery_date,
+      amount_delivered,
+    });
+    return delivery_epi;
+  }
+
+  async update({
+    delivery_id,
+    employee_id,
+    epi_id,
+    delivery_date,
+    amount_delivered,
+  }: IDeliveryEpiUpdate) {
+    const deliverEpiRepository = new DeliveryEpiRepository();
+    const epiRepository = new EpiRepository();
+    const employeeRepository = new EmployeeRepository();
+    const ifEmployeExist = await employeeRepository.findByIdEmployee(
+      employee_id
+    );
+    console.log(ifEmployeExist);
+    const ifEpiExists = await epiRepository.findByEpiId(epi_id);
+    console.log(ifEpiExists);
+    if (!ifEmployeExist) {
+      throw new Error("Employee not exists");
+    }
+    if (!ifEpiExists) {
+      throw new Error("EPI not exists");
+    }
+
+    const delivery_epi = await deliverEpiRepository.update({
+      delivery_id,
       employee_id,
       epi_id,
       delivery_date,
